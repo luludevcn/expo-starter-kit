@@ -1,4 +1,6 @@
-import { initializeApp } from '@react-native-firebase/app';
+import Constants from 'expo-constants';
+
+const isExpoGo = Constants.appOwnership === 'expo';
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY || '',
@@ -10,13 +12,19 @@ const firebaseConfig = {
   measurementId: process.env.FIREBASE_MEASUREMENT_ID || '',
 };
 
-export function initFirebase() {
+export async function initFirebase() {
+  if (isExpoGo) {
+    console.log('Firebase not available in Expo Go, skipping initialization');
+    return;
+  }
+
   if (!firebaseConfig.apiKey) {
     console.log('Firebase API key not configured, skipping initialization');
     return;
   }
 
   try {
+    const { initializeApp } = await import('@react-native-firebase/app');
     initializeApp(firebaseConfig);
     console.log('Firebase initialized successfully');
   } catch (error) {

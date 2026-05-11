@@ -1,11 +1,11 @@
 import { initSentry } from './sentry';
 import { initFirebase } from './firebase';
 
-export function initializeApp() {
+export async function initializeApp() {
   console.log('Initializing app services...');
   
   initSentry();
-  initFirebase();
+  await initFirebase();
   
   console.log('App services initialized');
 }

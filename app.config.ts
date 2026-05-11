@@ -5,6 +5,7 @@ const defineConfig = (): ExpoConfig => ({
   name: process.env.APP_NAME || 'Expo Starter Kit',
   slug: process.env.APP_SLUG || 'expo-starter-kit',
   version: process.env.APP_VERSION || '1.0.0',
+  scheme: 'expostarterkit',
   orientation: 'portrait',
   icon: './assets/icon.png',
   userInterfaceStyle: 'automatic',
@@ -44,7 +45,6 @@ const defineConfig = (): ExpoConfig => ({
         iosGoogleServicesFile: './GoogleService-Info.plist',
       },
     ],
-    '@react-native-firebase/analytics',
   ],
   extra: {
     eas: {

@@ -61,7 +61,7 @@ export default function HistoryScreen() {
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         ListEmptyComponent={renderEmpty}
-        contentContainerClassName="p-4 flex-grow"
+        contentContainerStyle={{ padding: 16, flexGrow: 1 }}
         ItemSeparatorComponent={() => <Spacer size="sm" />}
       />
     </SafeAreaView>
