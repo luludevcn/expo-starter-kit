@@ -17,7 +17,11 @@
     },
     "dependencies": {
         "@react-native-async-storage/async-storage": "2.1.0",
+        "@react-native-firebase/analytics": "^24.0.0",
+        "@react-native-firebase/app": "^24.0.0",
+        "@sentry/react-native": "^8.11.0",
         "@tailwindcss/vite": "^4.0.0",
+        "dotenv": "^17.4.2",
         "expo": "~52.0.0",
         "expo-build-properties": "~0.14.0",
         "expo-constants": "~17.0.0",

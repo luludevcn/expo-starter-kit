@@ -5,11 +5,16 @@ import { useColorScheme } from 'react-native';
 import { useSettingsStore } from '../src/stores';
 import { useNotification } from '../src/hooks';
 import { DevMenu } from '../src/components/dev';
+import { initializeApp } from '../src/utils/init';
 
 export default function RootLayout() {
     const colorScheme = useColorScheme();
     const { theme } = useSettingsStore();
     const { requestPermissions } = useNotification();
+
+    useEffect(() => {
+        initializeApp();
+    }, []);
 
     useEffect(() => {
         if (theme === 'system') {

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { usePurchaseStore } from '../stores';
 
-const PRO_PRODUCT_ID = 'your_pro_product_id';
-const REVENUECAT_API_KEY = 'your_revenuecat_api_key';
+const PRO_PRODUCT_ID = process.env.REVENUECAT_PRO_PRODUCT_ID || 'your_pro_product_id';
+const REVENUECAT_API_KEY = process.env.REVENUECAT_API_KEY || 'your_revenuecat_api_key';
 
 export function useRevenueCat() {
   const { isPro, unlockPro, lockPro } = usePurchaseStore();
@@ -14,6 +14,7 @@ export function useRevenueCat() {
   const initRevenueCat = async () => {
     try {
       console.log('RevenueCat init placeholder - install react-native-purchases to enable');
+      console.log('API Key:', REVENUECAT_API_KEY ? 'configured' : 'not configured');
     } catch (error) {
       console.error('RevenueCat init error:', error);
     }
@@ -22,6 +23,7 @@ export function useRevenueCat() {
   const purchasePro = async () => {
     try {
       console.log('Purchase Pro - install react-native-purchases to enable');
+      console.log('Product ID:', PRO_PRODUCT_ID);
       unlockPro();
     } catch (error) {
       console.error('Purchase error:', error);
