@@ -27,10 +27,10 @@ A reusable React Native / Expo template for building production-ready mobile app
 
 ```bash
 # Create with npx
-npx create-expo-app@6.5.0 my-new-app --template https://github.com/yourusername/expo-starter-kit
+npx create-expo-app@6.5.0 my-new-app --template https://github.com/luludevcn/expo-starter-kit
 
 # Or clone manually
-git clone https://github.com/yourusername/expo-starter-kit.git my-new-app
+git clone https://github.com/luludevcn/expo-starter-kit.git my-new-app
 cd my-new-app
 ```
 
