@@ -31,9 +31,9 @@ export function useNotification() {
       if (!notificationsEnabled) return;
 
       const reminders = [
-        { seconds: durationSeconds - 15 * 60, title: '还剩15分钟', body: '停车还剩15分钟' },
-        { seconds: durationSeconds - 5 * 60, title: '还剩5分钟', body: '停车还剩5分钟' },
-        { seconds: 0, title: '超时啦！', body: '停车已超时，快去挪车' },
+        { seconds: durationSeconds - 15 * 60, title: '15 Minutes Left', body: '15 minutes remaining' },
+        { seconds: durationSeconds - 5 * 60, title: '5 Minutes Left', body: '5 minutes remaining' },
+        { seconds: 0, title: 'Time\'s Up!', body: 'Time is up, please move your car' },
       ];
 
       if (isExpoGo) {

@@ -2,23 +2,65 @@
 
 A reusable React Native / Expo template for building production-ready mobile apps quickly.
 
-## Quick Start
+## ✨ Features
+
+- **Modern Tech Stack**: Built on Expo SDK 55 + React Native 0.83
+- **Declarative Routing**: Expo Router v55 for page navigation
+- **State Management**: Zustand + AsyncStorage persistence
+- **Styling System**: NativeWind (TailwindCSS 3)
+- **Notification System**: expo-notifications integration
+- **In-App Purchases**: RevenueCat ready
+- **Error Tracking**: Sentry integration
+- **Analytics**: Firebase Analytics ready
+- **Developer Tools**: Dev menu, screenshot capture
+- **CI/CD**: GitHub Actions for automated builds
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js >= 20.x
+- npm >= 10.x
+- Expo CLI (`npm install -g expo-cli`)
+
+### Create a New Project
 
 ```bash
-# Clone the template
-cp -r expo-starter-kit my-new-app
+# Create with npx
+npx create-expo-app@6.5.0 my-new-app --template https://github.com/yourusername/expo-starter-kit
+
+# Or clone manually
+git clone https://github.com/yourusername/expo-starter-kit.git my-new-app
 cd my-new-app
-
-# Install dependencies
-npm install
-
-# Run development server
-npx expo start
 ```
 
-## Configuration
+### Install Dependencies
 
-### 1. Update `app.config.ts`
+```bash
+npm install
+```
+
+### Run Development Server
+
+```bash
+# Start development server
+npm start
+
+# Start Android emulator
+npm run android
+
+# Start iOS simulator
+npm run ios
+
+# Start web version
+npm run web
+```
+
+## ⚙️ Configuration
+
+### 1. Update App Configuration
+
+Edit `app.config.ts` to configure your app:
 
 ```typescript
 {
@@ -41,11 +83,13 @@ npx expo start
 ### 3. Environment Variables
 
 Copy the template file and configure your environment variables:
+
 ```bash
 cp .env.example .env
 ```
 
 Edit `.env` with your values:
+
 ```bash
 # Expo Configuration
 EXPO_TOKEN=your_expo_token_here
@@ -88,60 +132,136 @@ ENABLE_ANALYTICS=false
 | `ENABLE_ANALYTICS` | Enable analytics features | No (defaults to false) |
 | `SENTRY_DSN` | Sentry DSN for error tracking | No |
 | `FIREBASE_API_KEY` | Firebase API key for analytics | No |
-| `FIREBASE_AUTH_DOMAIN` | Firebase auth domain | No |
 | `FIREBASE_PROJECT_ID` | Firebase project ID | No |
-| `FIREBASE_STORAGE_BUCKET` | Firebase storage bucket | No |
-| `FIREBASE_MESSAGING_SENDER_ID` | Firebase messaging sender ID | No |
-| `FIREBASE_APP_ID` | Firebase app ID | No |
-| `FIREBASE_MEASUREMENT_ID` | Firebase measurement ID | No |
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 ├── app/                    # Expo Router pages
-│   ├── _layout.tsx        # Root layout
-│   ├── index.tsx          # Home page
+│   ├── _layout.tsx        # Root layout (theme, route config)
+│   ├── index.tsx          # Home page (timer demo)
 │   ├── settings.tsx       # Settings page
 │   └── history.tsx        # History page
 ├── src/
 │   ├── components/         # Reusable UI components
-│   │   ├── dev/           # Dev tools (DevMenu, ScreenshotCapture)
-│   │   ├── Button.tsx
-│   │   ├── Card.tsx
-│   │   └── ...
+│   │   ├── dev/           # Developer tools
+│   │   │   ├── DevMenu.tsx        # Dev menu (shake to open)
+│   │   │   ├── ScreenshotCapture.tsx  # Screenshot capture
+│   │   │   └── index.ts
+│   │   ├── Button.tsx     # Button component (multiple variants/sizes)
+│   │   ├── Card.tsx       # Card component
+│   │   ├── Spacer.tsx     # Spacer component
+│   │   ├── TimerDisplay.tsx # Timer display component
+│   │   └── index.ts
 │   ├── hooks/             # Custom hooks
-│   │   ├── useNotification.ts
-│   │   ├── useTimer.ts
-│   │   ├── usePurchase.ts
-│   │   └── useStorage.ts
-│   ├── stores/            # Zustand stores
-│   │   ├── purchaseStore.ts
-│   │   ├── settingsStore.ts
-│   │   └── historyStore.ts
+│   │   ├── useTimer.ts    # Timer hook
+│   │   ├── useNotification.ts # Notification hook
+│   │   ├── usePurchase.ts # In-app purchase hook
+│   │   ├── useRevenueCat.ts # RevenueCat integration hook
+│   │   ├── useAnalytics.ts # Analytics hook
+│   │   ├── useStorage.ts  # Storage hook
+│   │   └── index.ts
+│   ├── stores/            # Zustand state management
+│   │   ├── settingsStore.ts # Settings state
+│   │   ├── purchaseStore.ts # Purchase state
+│   │   ├── historyStore.ts  # History state
+│   │   └── index.ts
 │   ├── theme/             # Theme configuration
-│   │   ├── colors.ts
-│   │   └── typography.ts
-│   ├── types/             # TypeScript types
-│   └── utils/             # Utility functions
+│   │   ├── colors.ts      # Color definitions (light/dark)
+│   │   ├── typography.ts  # Typography styles
+│   │   └── index.ts
+│   ├── types/             # TypeScript type definitions
+│   │   └── index.ts
+│   ├── utils/             # Utility functions
+│   │   ├── firebase.ts    # Firebase initialization
+│   │   ├── sentry.ts      # Sentry initialization
+│   │   ├── notifications.ts # Notification utilities
+│   │   ├── storage.ts     # Storage utilities
+│   │   ├── constants.ts   # Constants
+│   │   ├── helpers.ts     # Helper functions
+│   │   ├── init.ts        # App initialization
+│   │   └── index.ts
+│   └── index.css          # Global styles
 ├── scripts/               # Build scripts
+│   └── capture-screenshots.js # Screenshot capture script
 ├── .github/workflows/     # GitHub Actions
+│   └── build.yml          # Automated build workflow
 ├── eas.json              # EAS Build config
-└── app.config.ts          # Expo config
+├── app.config.ts          # Expo config
+└── tailwind.config.js     # TailwindCSS config
 ```
 
-## Development Tools
+## 🎯 Core Features
 
-### Dev Menu (Shake to Open)
+### 1. Timer Functionality
 
-The template includes a development menu accessible by shaking your device:
+The template includes a complete timer implementation:
+
+```tsx
+import { useTimer } from '../src/hooks';
+
+const timer = useTimer({ 
+  initialSeconds: 30, 
+  autoStart: false,
+  onComplete: () => console.log('Timer done!')
+});
+
+// Usage
+timer.start();    // Start timer
+timer.pause();    // Pause timer
+timer.reset();    // Reset timer
+timer.setTime(60); // Set time
+```
+
+### 2. Notification System
+
+Supports scheduled reminders and immediate notifications:
+
+```tsx
+import { useNotification } from '../src/hooks';
+
+const { 
+  requestPermissions, 
+  scheduleTimerReminder, 
+  sendNotification 
+} = useNotification();
+
+// Request notification permissions
+await requestPermissions();
+
+// Send immediate notification
+sendNotification('Title', 'Content');
+
+// Schedule reminder (parking scenario example)
+scheduleTimerReminder(30 * 60, 'timer-id');
+```
+
+### 3. Theme System
+
+Supports three theme modes:
+
+```tsx
+import { useSettingsStore } from '../src/stores';
+
+const { theme, setTheme } = useSettingsStore();
+
+// Set theme
+setTheme('system');  // Follow system
+setTheme('light');   // Light mode
+setTheme('dark');    // Dark mode
+```
+
+### 4. Developer Tools
+
+#### Dev Menu (Shake to Open)
+
+In development mode, shake your device to open the dev menu:
 
 - **Clear Storage** - Reset all AsyncStorage data
 - **Simulate Purchase** - Toggle between Free/Pro status
 - **Test Notification** - Send a test notification
 - **Toggle Theme** - Cycle through system/light/dark modes
 - **Toggle Notifications** - Enable/disable notifications
-
-Usage in your app:
 
 ```tsx
 import { DevMenu } from './src/components/dev';
@@ -155,7 +275,7 @@ export default function App() {
 }
 ```
 
-### Screenshot Capture
+#### Screenshot Capture
 
 For capturing store screenshots:
 
@@ -168,17 +288,21 @@ import { ScreenshotCapture } from './src/components/dev';
 Run the screenshot script:
 
 ```bash
+npm run screenshots
+# or
 node scripts/capture-screenshots.js
 ```
 
-## Customization Guide
+## 🛠️ Customization Guide
 
 ### Adding New Pages
+
+Create new files in the `app/` directory:
 
 ```
 app/about.tsx          → /about
 app/profile.tsx        → /profile
-app/(auth)/login.tsx   → /auth/login (with layout group)
+app/(auth)/login.tsx   → /login (with layout group)
 ```
 
 ### Adding Components
@@ -189,7 +313,9 @@ app/(auth)/login.tsx   → /auth/login (with layout group)
 ```tsx
 // src/components/MyComponent.tsx
 export function MyComponent() {
-  return <View />;
+  return <View className="p-4">
+    <Text>My Component</Text>
+  </View>;
 }
 ```
 
@@ -199,6 +325,7 @@ export function MyComponent() {
 // src/stores/myStore.ts
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const useMyStore = create()(
   persist(
@@ -206,7 +333,7 @@ export const useMyStore = create()(
       value: '',
       setValue: (value) => set({ value }),
     }),
-    { name: 'my-store' }
+    { name: 'my-store', storage: AsyncStorage }
   )
 );
 ```
@@ -215,8 +342,16 @@ export const useMyStore = create()(
 
 ```tsx
 // src/hooks/useMyHook.ts
+import { useState, useEffect } from 'react';
+
 export function useMyHook() {
-  // your hook logic
+  const [data, setData] = useState(null);
+  
+  useEffect(() => {
+    // initialization logic
+  }, []);
+  
+  return { data, setData };
 }
 ```
 
@@ -227,29 +362,41 @@ Edit `src/theme/colors.ts` to customize colors:
 ```typescript
 export const lightColors = {
   primary: '#007AFF',
-  // ...
+  primaryDark: '#0066CC',
+  secondary: '#5856D6',
+  danger: '#FF3B30',
+  success: '#34C759',
+  // ...more colors
 };
 
 export const darkColors = {
   primary: '#0A84FF',
-  // ...
+  primaryDark: '#0066CC',
+  // ...more colors
 };
 ```
 
-## Available Scripts
+## 📋 Available Scripts
 
 ```bash
 npm start           # Start Expo dev server
-npm run lint         # Run ESLint
-npm run typecheck    # Run TypeScript check
+npm run android     # Start Android emulator
+npm run ios         # Start iOS simulator
+npm run web         # Start web dev server
+npm run lint        # Run ESLint
+npm run typecheck   # Run TypeScript check
+npm run prettier    # Format code
+npm run prebuild    # Prebuild native projects
 npm run build:android # Build Android (local)
-eas build -p android # Build Android (EAS)
-eas build -p ios     # Build iOS (EAS)
+npm run build:ios     # Build iOS (local)
+npm run screenshots   # Run screenshot script
+eas build -p android  # Build Android (EAS)
+eas build -p ios      # Build iOS (EAS)
 ```
 
-## GitHub Actions
+## 🔄 CI/CD Configuration
 
-The template includes CI/CD workflows for automatic builds.
+The template includes GitHub Actions for automated builds.
 
 ### Required Secrets
 
@@ -265,21 +412,48 @@ Add these in GitHub repository Settings → Secrets:
 | Build | Push to `main` | Builds Android APK + iOS |
 | Lint | Every push | Runs ESLint + TypeScript |
 
-## Tech Stack
+## 🛡️ Tech Stack
 
-| Category | Technology |
-|----------|------------|
-| Framework | Expo SDK 52 |
-| Navigation | Expo Router v4 |
-| State | Zustand + persist |
-| Styling | NativeWind (Tailwind) |
-| Storage | AsyncStorage |
-| Notifications | expo-notifications |
-| In-App Purchases | RevenueCat ready |
-| Error Tracking | Sentry |
-| Analytics | Firebase Analytics |
-| Haptics | expo-haptics |
+| Category | Technology | Version |
+|----------|------------|---------|
+| Framework | Expo SDK | 55.x |
+| Navigation | Expo Router | 55.x |
+| State | Zustand | 5.x |
+| Styling | NativeWind / TailwindCSS | 2.x / 3.x |
+| Storage | AsyncStorage | 2.x |
+| Notifications | expo-notifications | 55.x |
+| In-App Purchases | RevenueCat | Ready |
+| Error Tracking | Sentry | 7.x |
+| Analytics | Firebase Analytics | 24.x |
+| Haptics | expo-haptics | 55.x |
+| Animation | react-native-reanimated | 4.x |
 
-## License
+## 📱 Preview Pages
 
-MIT
+### Home Page (index.tsx)
+- Timer demo component
+- Navigation buttons to Settings and History pages
+
+### Settings Page (settings.tsx)
+- Purchase status display
+- Notification toggle
+- Theme switcher
+- Data management (clear history, reset data)
+
+### History Page (history.tsx)
+- History records list
+- Clear history functionality
+
+## 📝 License
+
+MIT License
+
+## 🤝 Contributing
+
+Contributions are welcome! Please submit issues and pull requests.
+
+## 📧 Contact
+
+For questions or suggestions, please contact:
+- Submit GitHub Issue
+- Send email to your@email.com
